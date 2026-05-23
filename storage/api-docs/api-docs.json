@@ -1,0 +1,508 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "ProviEmplea API",
+        "description": "API REST para gestión de talentos y empresas",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080/api",
+            "description": "Servidor local"
+        }
+    ],
+    "paths": {
+        "/contactos": {
+            "get": {
+                "tags": [
+                    "Contactos"
+                ],
+                "summary": "Listar contactos solicitados",
+                "operationId": "4accfe2c4e814292e399c5f59df9e06e",
+                "responses": {
+                    "200": {
+                        "description": "Listado de contactos"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Contactos"
+                ],
+                "summary": "Crear contacto solicitado",
+                "operationId": "a9b8125203e476aee1d884f14133d850",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "empresa_id",
+                                    "persona_id"
+                                ],
+                                "properties": {
+                                    "empresa_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "persona_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "pendiente"
+                                    },
+                                    "notas_admin": {
+                                        "type": "string",
+                                        "example": "Primer contacto"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Contacto creado"
+                    }
+                }
+            }
+        },
+        "/contactos/{id}": {
+            "get": {
+                "tags": [
+                    "Contactos"
+                ],
+                "summary": "Obtener contacto por ID",
+                "operationId": "884be9340c991782d1114da5278aa590",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Contacto encontrado"
+                    },
+                    "404": {
+                        "description": "No encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Contactos"
+                ],
+                "summary": "Actualizar contacto",
+                "operationId": "b3009b9d0661669a5d7168e951b5b7d0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Contacto actualizado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Contactos"
+                ],
+                "summary": "Eliminar contacto",
+                "operationId": "1361677cf2ca07bfb3870f3c9f9b7bc0",
+                "responses": {
+                    "200": {
+                        "description": "Contacto eliminado"
+                    }
+                }
+            }
+        },
+        "/empresas": {
+            "get": {
+                "tags": [
+                    "Empresas"
+                ],
+                "summary": "Listar empresas",
+                "description": "Obtiene todas las empresas registradas",
+                "operationId": "22631014ece23858d19a7ef1c89f0e78",
+                "responses": {
+                    "200": {
+                        "description": "Listado de empresas"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Empresas"
+                ],
+                "summary": "Crear empresa",
+                "operationId": "edd395f6abdaa55cb0284b3b198d7ad6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre_empresa",
+                                    "rut_empresa",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "nombre_empresa": {
+                                        "type": "string",
+                                        "example": "Tech Chile"
+                                    },
+                                    "rut_empresa": {
+                                        "type": "string",
+                                        "example": "12.345.678-9"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "contacto@empresa.cl"
+                                    },
+                                    "rubro": {
+                                        "type": "string",
+                                        "example": "Tecnología"
+                                    },
+                                    "contacto_nombre": {
+                                        "type": "string",
+                                        "example": "Juan Pérez"
+                                    },
+                                    "contacto_email": {
+                                        "type": "string",
+                                        "example": "juan@empresa.cl"
+                                    },
+                                    "contacto_telefono": {
+                                        "type": "string",
+                                        "example": "912345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Empresa creada"
+                    },
+                    "422": {
+                        "description": "Error de validación"
+                    }
+                }
+            }
+        },
+        "/empresas/{id}": {
+            "get": {
+                "tags": [
+                    "Empresas"
+                ],
+                "summary": "Obtener empresa por ID",
+                "operationId": "1ab6ccd465b58367f4064aa417a103be",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Empresa encontrada"
+                    },
+                    "404": {
+                        "description": "No encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Empresas"
+                ],
+                "summary": "Actualizar empresa",
+                "operationId": "b61661cfb086a49afd6ebebf15ed6011",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre_empresa": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "rubro": {
+                                        "type": "string"
+                                    },
+                                    "contacto_nombre": {
+                                        "type": "string"
+                                    },
+                                    "contacto_email": {
+                                        "type": "string"
+                                    },
+                                    "contacto_telefono": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Empresa actualizada"
+                    },
+                    "404": {
+                        "description": "No encontrada"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Empresas"
+                ],
+                "summary": "Eliminar empresa",
+                "operationId": "56b2aac859ceb472597b45436c7f5f12",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Empresa eliminada correctamente"
+                    },
+                    "404": {
+                        "description": "No encontrada"
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "tags": [
+                    "Health"
+                ],
+                "operationId": "63ca574ccc7f0d914cdced2f70f30b57",
+                "responses": {
+                    "200": {
+                        "description": "API funcionando"
+                    }
+                }
+            }
+        },
+        "/personas": {
+            "get": {
+                "tags": [
+                    "Personas"
+                ],
+                "summary": "Listar personas",
+                "description": "Obtiene todas las personas registradas",
+                "operationId": "84e537aeba1e2d52163ea10927e98430",
+                "responses": {
+                    "200": {
+                        "description": "Listado de personas"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Personas"
+                ],
+                "summary": "Crear persona",
+                "operationId": "9d6d475142411d09ace30132072dbeb7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "codigo_talento"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "test@email.com"
+                                    },
+                                    "telefono": {
+                                        "type": "string",
+                                        "example": "912345678"
+                                    },
+                                    "codigo_talento": {
+                                        "type": "string",
+                                        "example": "TAL-001"
+                                    },
+                                    "resumen": {
+                                        "type": "string",
+                                        "example": "Desarrollador backend"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Persona creada"
+                    },
+                    "422": {
+                        "description": "Error de validación"
+                    }
+                }
+            }
+        },
+        "/personas/{id}": {
+            "get": {
+                "tags": [
+                    "Personas"
+                ],
+                "summary": "Obtener persona por ID",
+                "operationId": "bbd0a2bc22755dc3676325845d14deb2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Persona encontrada"
+                    },
+                    "404": {
+                        "description": "No encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Personas"
+                ],
+                "summary": "Actualizar persona",
+                "operationId": "a93de69e16ad096453410414ed502809",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "nuevo@email.com"
+                                    },
+                                    "telefono": {
+                                        "type": "string",
+                                        "example": "912345678"
+                                    },
+                                    "resumen": {
+                                        "type": "string",
+                                        "example": "Actualizado"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Persona actualizada"
+                    },
+                    "404": {
+                        "description": "No encontrada"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Personas"
+                ],
+                "summary": "Eliminar persona",
+                "operationId": "42bc19ebb4f9057d921a5d3fad327b28",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Persona eliminada correctamente"
+                    },
+                    "404": {
+                        "description": "No encontrada"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Health"
+        },
+        {
+            "name": "Personas"
+        },
+        {
+            "name": "Empresas"
+        },
+        {
+            "name": "Contactos",
+            "description": "Contactos"
+        }
+    ]
+}

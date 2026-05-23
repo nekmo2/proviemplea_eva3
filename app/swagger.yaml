@@ -1,0 +1,298 @@
+openapi: 3.0.0
+info:
+  title: ProviEmplea API
+  version: 1.0.0
+  description: API REST para gestión de personas, empresas y contactos solicitados
+
+servers:
+  - url: http://localhost:8080/api
+
+tags:
+  - name: Personas
+    description: Gestión de personas
+  - name: Empresas
+    description: Gestión de empresas
+  - name: Contactos
+    description: Gestión de contactos solicitados
+
+paths:
+
+  # =========================
+  # PERSONAS
+  # =========================
+
+  /personas:
+    get:
+      tags:
+        - Personas
+      summary: Listar personas
+      responses:
+        "200":
+          description: Lista de personas
+
+    post:
+      tags:
+        - Personas
+      summary: Crear persona
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - codigo_talento
+              properties:
+                email:
+                  type: string
+                  example: test@email.com
+                telefono:
+                  type: string
+                  example: "912345678"
+                codigo_talento:
+                  type: string
+                  example: TAL-001
+                resumen:
+                  type: string
+                  example: Desarrollador backend
+      responses:
+        "201":
+          description: Persona creada
+        "422":
+          description: Error de validación
+
+  /personas/{persona}:
+    get:
+      tags:
+        - Personas
+      summary: Obtener persona por ID
+      parameters:
+        - name: persona
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Persona encontrada
+        "404":
+          description: No encontrada
+
+    put:
+      tags:
+        - Personas
+      summary: Actualizar persona
+      parameters:
+        - name: persona
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                telefono:
+                  type: string
+                resumen:
+                  type: string
+      responses:
+        "200":
+          description: Persona actualizada
+
+    delete:
+      tags:
+        - Personas
+      summary: Eliminar persona
+      parameters:
+        - name: persona
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Persona eliminada
+
+  # =========================
+  # EMPRESAS
+  # =========================
+
+  /empresas:
+    get:
+      tags:
+        - Empresas
+      summary: Listar empresas
+      responses:
+        "200":
+          description: Lista de empresas
+
+    post:
+      tags:
+        - Empresas
+      summary: Crear empresa
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nombre_empresa
+                - email
+              properties:
+                nombre_empresa:
+                  type: string
+                email:
+                  type: string
+                rut_empresa:
+                  type: string
+      responses:
+        "201":
+          description: Empresa creada
+
+  /empresas/{empresa}:
+    get:
+      tags:
+        - Empresas
+      summary: Obtener empresa por ID
+      parameters:
+        - name: empresa
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Empresa encontrada
+
+    put:
+      tags:
+        - Empresas
+      summary: Actualizar empresa
+      parameters:
+        - name: empresa
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Empresa actualizada
+
+    delete:
+      tags:
+        - Empresas
+      summary: Eliminar empresa
+      parameters:
+        - name: empresa
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Empresa eliminada
+
+  # =========================
+  # CONTACTOS
+  # =========================
+
+  /contactos:
+    get:
+      tags:
+        - Contactos
+      summary: Listar contactos
+      responses:
+        "200":
+          description: Lista de contactos
+
+    post:
+      tags:
+        - Contactos
+      summary: Crear contacto solicitado
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - empresa_id
+                - persona_id
+              properties:
+                empresa_id:
+                  type: integer
+                  example: 1
+                persona_id:
+                  type: integer
+                  example: 1
+                estado:
+                  type: string
+                  example: pendiente
+                notas_admin:
+                  type: string
+                  example: Primer contacto
+      responses:
+        "201":
+          description: Contacto creado
+
+  /contactos/{contacto}:
+    get:
+      tags:
+        - Contactos
+      summary: Obtener contacto por ID
+      parameters:
+        - name: contacto
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Contacto encontrado
+
+    put:
+      tags:
+        - Contactos
+      summary: Actualizar contacto
+      parameters:
+        - name: contacto
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                estado:
+                  type: string
+                notas_admin:
+                  type: string
+      responses:
+        "200":
+          description: Contacto actualizado
+
+    delete:
+      tags:
+        - Contactos
+      summary: Eliminar contacto
+      parameters:
+        - name: contacto
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Contacto eliminado

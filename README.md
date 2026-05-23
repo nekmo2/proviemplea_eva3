@@ -1,58 +1,103 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# EVA 3 - API RESTful ProviEmplea
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este proyecto corresponde a la evaluación final de Backend.  
+La API fue desarrollada utilizando Laravel, MySQL y Docker siguiendo una arquitectura RESTful.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologías utilizadas
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Laravel
+- PHP
+- MySQL
+- Docker Desktop
+- Swagger (OpenAPI 3.0)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Objetivo del proyecto
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+El objetivo de este proyecto es desarrollar una API RESTful que permita gestionar un sistema de empleabilidad, donde se administran personas, empresas y contactos solicitados entre ambas entidades.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+La API permite registrar personas, registrar empresas, crear contactos entre personas y empresas, consultar registros mediante endpoints REST, actualizar y eliminar registros, y documentar la API mediante Swagger.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## Arquitectura del sistema
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+El sistema funciona de la siguiente forma:
 
-```bash
-composer require laravel/boost --dev
+El cliente realiza una petición HTTP, la solicitud llega a Laravel a través de las rutas definidas en api.php, la ruta dirige la petición al controlador correspondiente, el controlador ejecuta la lógica del negocio, el modelo interactúa con la base de datos MySQL mediante Eloquent y finalmente Laravel devuelve una respuesta en formato JSON al cliente.
 
-php artisan boost:install
-```
+---
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Persistencia de datos
 
-## Contributing
+La persistencia de datos se implementó utilizando migraciones de Laravel y MySQL.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Se crearon las tablas personas, empresas y contacto_solicitados.
 
-## Code of Conduct
+La tabla personas contiene información de los candidatos como id, email, telefono, codigo_talento, resumen, created_at y updated_at.  
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+La tabla empresas contiene información de las empresas como id, nombre_empresa, rut_empresa, email, rubro, tipo_empresa, contacto_nombre, contacto_email, contacto_telefono, created_at y updated_at.  
 
-## Security Vulnerabilities
+La tabla contacto_solicitados registra la relación entre personas y empresas con campos como id, empresa_id, persona_id, estado, notas_admin, fecha_contacto, fecha_entrevista, fecha_resultado, created_at y updated_at.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## Configuración del proyecto
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Para ejecutar el proyecto primero se deben levantar los contenedores utilizando docker compose up -d, luego instalar las dependencias del proyecto con composer install, después ejecutar las migraciones con php artisan migrate y en caso de problemas limpiar caché con php artisan optimize:clear.
+
+---
+
+## Endpoints disponibles
+
+### Personas
+
+GET /api/personas  
+POST /api/personas  
+GET /api/personas/{id}  
+PUT /api/personas/{id}  
+DELETE /api/personas/{id}
+
+### Empresas
+
+GET /api/empresas  
+POST /api/empresas  
+GET /api/empresas/{id}  
+PUT /api/empresas/{id}  
+DELETE /api/empresas/{id}
+
+### Contactos solicitados
+
+GET /api/contactos  
+POST /api/contactos  
+GET /api/contactos/{id}  
+PUT /api/contactos/{id}  
+DELETE /api/contactos/{id}
+
+---
+
+## Validaciones implementadas
+
+La API valida los campos de personas, empresas y contactos solicitados asegurando que los datos obligatorios estén presentes, que los correos electrónicos y códigos sean únicos y que las relaciones entre tablas existan en la base de datos.
+
+---
+
+## Documentación Swagger
+
+La documentación de la API está disponible en http://localhost:8080/api/documentation y el archivo swagger.yaml se encuentra en la raíz del proyecto.
+
+---
+
+## Herramientas utilizadas para pruebas
+
+Se utilizó el entorno de Swagger UI para probar y validar los endpoints de la API, junto con MySQL para la verificación de la persistencia de datos.
+
+---
+
+## Integrantes
+
+- Alvaro Vasquez Bernales
+
