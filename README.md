@@ -97,9 +97,10 @@ Se utilizó el entorno de Swagger UI para probar y validar los endpoints de la A
 
 ---
 
-## Integrantes
+## Integrantes equipo 3
 
-- Alvaro Vasquez Bernales
+- Alvaro Vasquez
+- Bruno Neira 
 
 ---
 
